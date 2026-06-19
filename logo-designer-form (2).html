@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Logo Designer Application – Mohammad Riyaz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f14;
+    color: #e8e8f0;
+    min-height: 100vh;
+    padding: 40px 16px 60px;
+  }
+
+  .card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #1a1a26;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+
+  .header {
+    background: linear-gradient(135deg, #6c47ff 0%, #c84bff 100%);
+    padding: 36px 32px 28px;
+  }
+
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+  }
+
+  .form-body {
+    padding: 32px;
+  }
+
+  .field {
+    margin-bottom: 22px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a0a0c0;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  label span.req { color: #c84bff; margin-left: 2px; }
+
+  input, textarea, select {
+    width: 100%;
+    background: #12121c;
+    border: 1.5px solid #2a2a40;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #e8e8f0;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #6c47ff;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #44445a;
+  }
+
+  select option { background: #1a1a26; }
+
+  textarea { resize: vertical; min-height: 90px; }
+
+  .price-wrap {
+    position: relative;
+  }
+
+  .price-wrap .symbol {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    font-weight: 700;
+    color: #6c47ff;
+  }
+
+  .price-wrap input {
+    padding-left: 32px;
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #c0c0d8;
+    font-weight: 400;
+    font-size: 13.5px;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #6c47ff;
+    border-radius: 4px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #2a2a40;
+    margin: 28px 0;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6c47ff;
+    margin-bottom: 18px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #6c47ff, #c84bff);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:active { transform: scale(0.99); }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #44445a;
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    padding: 56px 32px;
+    text-align: center;
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #6c47ff, #c84bff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+
+  .success-screen h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .success-screen p {
+    font-size: 14px;
+    color: #8080a0;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="badge">🎨 Hiring Now</div>
+    <h1>Logo Designer<br/>Application Form</h1>
+    <p>Submit your portfolio & pricing to collaborate with Mohammad Riyaz on a professional branding project.</p>
+  </div>
+
+  <div class="form-body" id="formSection">
+
+    <p class="section-title">Personal Information</p>
+
+    <div class="field">
+      <label>Full Name <span class="req">*</span></label>
+      <input type="text" id="name" placeholder="Enter your full name" />
+    </div>
+
+    <div class="field">
+      <label>Email Address <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="yourname@email.com" />
+    </div>
+
+    <div class="field">
+      <label>WhatsApp Number <span class="req">*</span></label>
+      <input type="tel" id="whatsapp" placeholder="+91 XXXXX XXXXX" />
+    </div>
+
+    <hr class="divider"/>
+    <p class="section-title">Design Experience</p>
+
+    <div class="field">
+      <label>Years of Experience <span class="req">*</span></label>
+      <select id="experience">
+        <option value="" disabled selected>Select experience level</option>
+        <option>Less than 1 year</option>
+        <option>1–2 years</option>
+        <option>3–5 years</option>
+        <option>5+ years</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Design Style (select all that apply)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="Modern Minimalist"/> Modern Minimalist</label>
+        <label><input type="checkbox" value="Bold & Creative"/> Bold & Creative</label>
+        <label><input type="checkbox" value="Vintage / Retro"/> Vintage / Retro</label>
+        <label><input type="checkbox" value="Luxury / High-end"/> Luxury / High-end</label>
+        <label><input type="checkbox" value="Tech / Digital"/> Tech / Digital</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Portfolio Link <span class="req">*</span></label>
+      <input type="url" id="portfolio" placeholder="Behance / Dribbble / Instagram URL" />
+    </div>
+
+    <hr class="divider"/>
+    <p class="section-title">Pricing Details</p>
+
+    <div class="price-row">
+      <div class="field">
+        <label>Starting Price <span class="req">*</span></label>
+        <div class="price-wrap">
+          <span class="symbol">₹</span>
+          <input type="number" id="priceMin" placeholder="500" min="0" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Maximum Price</label>
+        <div class="price-wrap">
+          <span class="symbol">₹</span>
+          <input type="number" id="priceMax" placeholder="5000" min="0" />
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Delivery Time</label>
+      <select id="delivery">
+        <option value="" disabled selected>Select delivery time</option>
+        <option>1–2 days</option>
+        <option>3–5 days</option>
+        <option>1 week</option>
+        <option>2 weeks</option>
+        <option>Custom (mention below)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Additional Message</label>
+      <textarea id="message" placeholder="Tell us about your design approach, past projects, or anything else you'd like to share..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitForm()">Submit Application →</button>
+
+    <p class="footer-note">
+      By submitting, you agree to be contacted by Mohammad Riyaz<br/>
+      regarding this logo design opportunity.
+    </p>
+  </div>
+
+  <!-- Success Screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Application Submitted!</h2>
+    <p>Thank you for applying. Mohammad Riyaz will review your portfolio and reach out to you soon via WhatsApp or Email.</p>
+  </div>
+</div>
+
+<script>
+async function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const experience = document.getElementById('experience').value;
+  const portfolio = document.getElementById('portfolio').value.trim();
+  const priceMin = document.getElementById('priceMin').value.trim();
+  const priceMax = document.getElementById('priceMax').value.trim();
+  const delivery = document.getElementById('delivery').value;
+  const message = document.getElementById('message').value.trim();
+  const styles = [...document.querySelectorAll('.checkbox-group input:checked')].map(c => c.value).join(', ');
+
+  if (!name || !email || !whatsapp || !experience || !portfolio || !priceMin) {
+    alert('Please fill in all required fields (marked with *)');
+    return;
+  }
+
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  try {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('whatsapp', whatsapp);
+    formData.append('experience', experience);
+    formData.append('design_styles', styles || 'Not selected');
+    formData.append('portfolio', portfolio);
+    formData.append('starting_price', 'Rs.' + priceMin);
+    formData.append('max_price', priceMax ? 'Rs.' + priceMax : 'Not mentioned');
+    formData.append('delivery_time', delivery || 'Not mentioned');
+    formData.append('message', message || 'No message');
+
+    const response = await fetch('https://formspree.io/f/xaqzggyv', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+
+    if (response.ok) {
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+    } else {
+      const data = await response.json();
+      alert('Error: ' + (data.error || 'Something went wrong. Please try again.'));
+      btn.textContent = 'Submit Application →';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    alert('Network error. Please check your connection and try again.');
+    btn.textContent = 'Submit Application →';
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>
